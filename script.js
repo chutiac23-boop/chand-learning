@@ -29,3 +29,10 @@ const chandSupabase = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
+chandSupabase.auth.getSession().then(({ error }) => {
+  if (error) {
+    alert("Supabase connection failed: " + error.message);
+  } else {
+    alert("Supabase connection successful!");
+  }
+});

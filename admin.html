@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Chand Learning</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .admin-layout {
+      min-height: 100vh;
+      display: flex;
+      background: #f3f6fc;
+    }
+    .sidebar {
+      width: 245px;
+      background: #14264b;
+      color: white;
+      padding: 28px 18px;
+    }
+    .sidebar h2 { font-size: 21px; margin-bottom: 8px; }
+    .sidebar p { color: #b8c8e8; font-size: 13px; margin-bottom: 30px; }
+    .sidebar a {
+      display: block;
+      color: #e5edff;
+      padding: 12px;
+      margin: 5px 0;
+      border-radius: 8px;
+    }
+    .sidebar a.active, .sidebar a:hover { background: #2463eb; }
+    .admin-main { flex: 1; padding: 35px; min-width: 0; }
+    .admin-main h1 { font-size: 29px; margin-bottom: 8px; }
+    .admin-intro { color: #526078; margin-bottom: 28px; }
+    .notice {
+      padding: 16px;
+      background: #fff7df;
+      border: 1px solid #f2dfa8;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      color: #70551a;
+    }
+    .admin-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .admin-card {
+      background: white;
+      border: 1px solid #e3eaf5;
+      border-radius: 13px;
+      padding: 23px;
+    }
+    .admin-card span { font-size: 29px; }
+    .admin-card h3 { margin: 12px 0 5px; }
+    .admin-card p { color: #526078; font-size: 14px; }
+    .admin-status { margin-top: 28px; color: #526078; font-size: 13px; }
+    @media (max-width: 700px) {
+      .admin-layout { display: block; }
+      .sidebar { width: 100%; padding: 20px 15px; }
+      .sidebar nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
+      .admin-main { padding: 24px 16px; }
+      .admin-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <h2>Chand Learning</h2>
+      <p>Administration Centre</p>
+      <nav>
+        <a class="active" href="admin.html">Dashboard</a>
+        <a href="#classes">Classes & Subjects</a>
+        <a href="#teachers">Teachers</a>
+        <a href="#lessons">Lessons & Videos</a>
+        <a href="#materials">Study Materials</a>
+        <a href="#students">Students</a>
+        <a href="#settings">Platform Settings</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <h1>Admin Dashboard</h1>
+      <p class="admin-intro">Your central management space for Chand Learning.</p>
+
+      <div class="notice">
+        <strong>Development preview:</strong>
+        This page is not protected by admin login yet. Do not use it to manage real student accounts or private information.
+      </div>
+
+      <div class="admin-cards">
+        <section class="admin-card" id="classes">
+          <span>📚</span>
+          <h3>Classes & Subjects</h3>
+          <p>Plan and organise classes, subjects and chapters.</p>
+        </section>
+        <section class="admin-card" id="teachers">
+          <span>👩‍🏫</span>
+          <h3>Teacher Management</h3>
+          <p>Plan teacher accounts, assignments and permissions.</p>
+        </section>
+        <section class="admin-card" id="lessons">
+          <span>🎥</span>
+          <h3>Lessons & Videos</h3>
+          <p>Organise recorded lectures and live lesson schedules.</p>
+        </section>
+        <section class="admin-card" id="materials">
+          <span>📄</span>
+          <h3>Study Materials</h3>
+          <p>Organise notes, PDFs and downloadable resources.</p>
+        </section>
+        <section class="admin-card" id="students">
+          <span>🎓</span>
+          <h3>Student Management</h3>
+          <p>Plan student accounts and learning access.</p>
+        </section>
+        <section class="admin-card" id="settings">
+          <span>⚙️</span>
+          <h3>Platform Settings</h3>
+          <p>Plan platform-wide settings and controls.</p>
+        </section>
+      </div>
+
+      <p class="admin-status">Chand Learning · Admin Dashboard preview</p>
+    </main>
+  </div>
+</body>
+</html>

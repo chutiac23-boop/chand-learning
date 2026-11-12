@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 // Chand Learning - Supabase connection
-const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL_HERE";
-const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+const SUPABASE_URL = "https://wkpbfihymdcoivuvozvh.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_CCjXcQ1dA4yh-0vqxyDzfg_RDgJD2AR";
 
 const chandSupabase = supabase.createClient(
   SUPABASE_URL,

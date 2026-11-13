@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Chand Learning</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #eff6ff;
+    }
+    .auth-box {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(20,38,75,.08);
+    }
+    .auth-box h1 { color: #14264b; margin-bottom: 8px; }
+    .auth-box p { color: #526078; margin-bottom: 20px; }
+    .auth-box label { display: block; margin: 14px 0 6px; }
+    .auth-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e3eaf5;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .auth-box button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 20px;
+      background: #2463eb;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .auth-switch { margin-top: 20px; text-align: center; }
+    .auth-switch a { color: #2463eb; }
+    #auth-message { margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-box">
+      <h1>Chand Learning</h1>
+      <p id="form-description">Log in to continue learning.</p>
+
+      <form id="auth-form">
+        <div id="name-field" hidden>
+          <label for="full-name">Full name</label>
+          <input id="full-name" type="text" autocomplete="name">
+        </div>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" required autocomplete="email">
+
+        <label for="password">Password</label>
+        <input id="password" type="password" required minlength="6"
+          autocomplete="current-password">
+
+        <button id="submit-button" type="submit">Log in</button>
+      </form>
+
+      <p id="auth-message" role="status"></p>
+
+      <div class="auth-switch">
+        <span id="switch-text">New to Chand Learning?</span>
+        <a href="#" id="switch-mode">Create account</a>
+      </div>
+
+      <p><a href="index.html">Back to home</a></p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://wkpbfihymdcoivuvozvh.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_CCjXcQ1dA4yh-0vqxyDzfg_RDgJD2AR";
+    const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let isSignup = false;
+
+    const form = document.getElementById("auth-form");
+    const message = document.getElementById("auth-message");
+    const nameField = document.getElementById("name-field");
+    const switchMode = document.getElementById("switch-mode");
+
+    switchMode.addEventListener("click", function(event) {
+      event.preventDefault();
+      isSignup = !isSignup;
+      nameField.hidden = !isSignup;
+
+      document.getElementById("form-description").textContent =
+        isSignup ? "Create your student account." : "Log in to continue learning.";
+
+      document.getElementById("submit-button").textContent =
+        isSignup ? "Create account" : "Log in";
+
+      document.getElementById("switch-text").textContent =
+        isSignup ? "Already registered?" : "New to Chand Learning?";
+
+      switchMode.textContent = isSignup ? "Log in" : "Create account";
+      document.getElementById("password").autocomplete =
+        isSignup ? "new-password" : "current-password";
+
+      message.textContent = "";
+    });
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      message.textContent = "Please wait...";
+      document.getElementById("submit-button").disabled = true;
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const fullName = document.getElementById("full-name").value.trim();
+
+      try {
+        if (isSignup) {
+          if (!fullName) throw new Error("Please enter your full name.");
+
+          const { data, error } = await db.auth.signUp({
+            email,
+            password,
+            options: {
+              data: { full_name: fullName }
+            }
+          });
+
+          if (error) throw error;
+
+          message.textContent = data.session
+            ? "Account created. You can now continue."
+            : "Account created. Check your email to confirm registration.";
+        } else {
+          const { error } = await db.auth.signInWithPassword({
+            email,
+            password
+          });
+
+          if (error) throw error;
+
+          message.textContent = "Login successful. Opening Chand Learning...";
+          window.location.href = "index.html";
+        }
+      } catch (error) {
+        message.textContent = error.message;
+      } finally {
+        document.getElementById("submit-button").disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

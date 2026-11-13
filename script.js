@@ -61,9 +61,14 @@ function updateAuthUI(session) {
     .eq("id", session.user.id)
     .maybeSingle();
 
-  if (!error && profile && profile.full_name) {
-    welcome.textContent = "Welcome, " + profile.full_name;
+  if (error) {
+  alert("Profile error: " + error.message);
+} else if (profile && profile.full_name) {
+  welcome.textContent = "Welcome, " + profile.full_name;
+} else {
+  alert("Profile found, but full name is empty.");
   }
+      
 }, 0);
   } else {
     const login = document.createElement("a");

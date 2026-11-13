@@ -29,10 +29,46 @@ const chandSupabase = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
-chandSupabase.auth.getSession().then(({ error }) => {
-  if (error) {
-    alert("Supabase connection failed: " + error.message);
+const authContainer = document.querySelector(".auth");
+
+function updateAuthUI(session) {
+  if (!authContainer) return;
+
+  authContainer.innerHTML = "";
+
+  if (session && session.user) {
+    const welcome = document.createElement("span");
+    welcome.textContent = "Welcome, " + session.user.email;
+
+    const logoutButton = document.createElement("button");
+    logoutButton.textContent = "Log out";
+
+    logoutButton.addEventListener("click", async function () {
+      const { error } = await chandSupabase.auth.signOut();
+
+      if (error) {
+        alert("Logout failed: " + error.message);
+      } else {
+        window.location.reload();
+      }
+    });
+
+    authContainer.append(welcome, logoutButton);
   } else {
-    alert("Supabase connection successful!");
+    const login = document.createElement("a");
+    login.href = "auth.html";
+    login.className = "login";
+    login.textContent = "Log in";
+
+    const signup = document.createElement("a");
+    signup.href = "auth.html";
+    signup.className = "signup";
+    signup.textContent = "Sign up";
+
+    authContainer.append(login, signup);
   }
+}
+
+chandSupabase.auth.onAuthStateChange((event, session) => {
+  updateAuthUI(session);
 });

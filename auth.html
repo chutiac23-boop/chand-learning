@@ -153,7 +153,7 @@
           window.location.href = "index.html";
         }
       } catch (error) {
-        message.textContent = error.message;
+        message.textContent = error.message + " (" + error.code + ")";
       } finally {
         document.getElementById("submit-button").disabled = false;
       }

@@ -38,7 +38,7 @@ function updateAuthUI(session) {
 
   if (session && session.user) {
     const welcome = document.createElement("span");
-    welcome.textContent = "Welcome, Chandan Chutia";
+    welcome.textContent = "Welcome";
 
     const logoutButton = document.createElement("button");
     logoutButton.textContent = "Log out";

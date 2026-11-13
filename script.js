@@ -54,6 +54,17 @@ function updateAuthUI(session) {
     });
 
     authContainer.append(welcome, logoutButton);
+    setTimeout(async function () {
+  const { data: profile, error } = await chandSupabase
+    .from("profiles")
+    .select("full_name")
+    .eq("id", session.user.id)
+    .maybeSingle();
+
+  if (!error && profile && profile.full_name) {
+    welcome.textContent = "Welcome, " + profile.full_name;
+  }
+}, 0);
   } else {
     const login = document.createElement("a");
     login.href = "auth.html";

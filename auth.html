@@ -131,8 +131,9 @@
             email,
             password,
             options: {
-              data: { full_name: fullName }
-            }
+  data: { full_name: fullName },
+  emailRedirectTo: "https://chutiac23-boop.github.io/chand-learning/"
+    }
           });
 
           if (error) throw error;

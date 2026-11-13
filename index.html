@@ -1,97 +1,312 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Chand Learning - A smarter way to learn.">
+
   <title>Chand Learning | A Smarter Way to Learn</title>
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
+  <!-- HEADER -->
   <header class="navbar">
+
     <a class="brand" href="index.html">Chand Learning</a>
+
     <nav>
       <a href="#subjects">Subjects</a>
       <a href="#explore">Explore More</a>
       <a href="#help">Help</a>
     </nav>
+
     <div class="auth">
-  <a href="auth.html" class="login">Log in</a>
-  <a href="auth.html" class="signup">Sign up</a>
+      <a href="auth.html" class="login">Log in</a>
+      <a href="auth.html" class="signup">Sign up</a>
     </div>
+
   </header>
 
+
   <main>
+
+    <!-- HERO SECTION -->
     <section class="hero">
+
       <div class="hero-content">
+
         <p class="eyebrow">WELCOME TO CHAND LEARNING</p>
+
         <h1>A Smarter Way to Learn</h1>
-        <p>Learn better, explore ideas and build your future with one learning platform.</p>
-        <a href="#subjects" class="primary-button">Start Learning</a>
+
+        <p>
+          Learn better, explore ideas and build your future
+          with one learning platform.
+        </p>
+
+        <a href="#subjects" class="primary-button">
+          Start Learning
+        </a>
+
       </div>
+
       <div class="hero-art" aria-label="Learning illustration">
+
         <div class="book-icon">📚</div>
-        <div class="hero-note">Learn • Create • Grow</div>
-      </div>
-    </section>
 
-    <section class="section" id="subjects">
-      <div class="section-heading">
-        <p class="eyebrow">YOUR LEARNING SPACE</p>
-        <h2>Explore Subjects</h2>
-        <p>Choose a subject to begin your learning journey.</p>
-      </div>
-      <div class="subject-grid">
-        <a class="subject-card" href="#">
-          <span>∑</span><h3>Mathematics</h3><p>Understand concepts step by step.</p>
-        </a>
-        <a class="subject-card" href="#">
-          <span>⚛</span><h3>Science</h3><p>Discover how the world works.</p>
-        </a>
-        <a class="subject-card" href="#">
-          <span>文</span><h3>English</h3><p>Improve language and communication.</p>
-        </a>
-      </div>
-    </section>
-
-    <section class="section explore-section" id="explore">
-      <div class="section-heading">
-        <p class="eyebrow">MORE TO EXPLORE</p>
-        <h2>Discover More Possibilities</h2>
-        <p>Tools and spaces designed to support your learning.</p>
-      </div>
-
-      <a class="ai-feature" href="#">
-        <div class="feature-icon">✦</div>
-        <div>
-          <p class="eyebrow">SMART LEARNING</p>
-          <h3>AI Learning Centre</h3>
-          <p>Ask questions, understand difficult topics and explore ideas with AI.</p>
+        <div class="hero-note">
+          Learn • Create • Grow
         </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBJECTS SECTION -->
+    <section class="section" id="subjects">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">YOUR LEARNING SPACE</p>
+
+        <h2>Explore Subjects</h2>
+
+        <p>
+          Choose a subject to begin your learning journey.
+        </p>
+
+      </div>
+
+      <div class="subject-grid">
+
+        <a class="subject-card"
+           href="subjects.html?subject=mathematics">
+
+          <span>∑</span>
+
+          <h3>Mathematics</h3>
+
+          <p>
+            Understand concepts step by step.
+          </p>
+
+        </a>
+
+
+        <a class="subject-card"
+           href="subjects.html?subject=science">
+
+          <span>⚛</span>
+
+          <h3>Science</h3>
+
+          <p>
+            Discover how the world works.
+          </p>
+
+        </a>
+
+
+        <a class="subject-card"
+           href="subjects.html?subject=english">
+
+          <span>文</span>
+
+          <h3>English</h3>
+
+          <p>
+            Improve language and communication.
+          </p>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXPLORE MORE SECTION -->
+    <section class="section explore-section" id="explore">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">MORE TO EXPLORE</p>
+
+        <h2>Discover More Possibilities</h2>
+
+        <p>
+          Tools and spaces designed to support your learning.
+        </p>
+
+      </div>
+
+
+      <!-- AI LEARNING CENTRE -->
+      <a class="ai-feature" href="ai-learning.html">
+
+        <div class="feature-icon">✦</div>
+
+        <div>
+
+          <p class="eyebrow">SMART LEARNING</p>
+
+          <h3>AI Learning Centre</h3>
+
+          <p>
+            Ask questions, understand difficult topics
+            and explore ideas with AI.
+          </p>
+
+        </div>
+
         <span class="feature-arrow">→</span>
+
       </a>
 
+
+      <!-- EXPLORE GRID -->
       <div class="explore-grid">
-        <a class="explore-card" href="#"><span>📝</span><h3>Smart Notes Studio</h3><p>Create and organise your study notes.</p></a>
-        <a class="explore-card" href="#"><span>📊</span><h3>College PPT Maker</h3><p>Prepare presentations for college work.</p></a>
-        <a class="explore-card" href="#"><span>❓</span><h3>Private Doubt Submission</h3><p>Send your doubts to the assigned teacher.</p></a>
-        <a class="explore-card" href="#"><span>💬</span><h3>Community Discussion</h3><p>Learn and discuss with other students.</p></a>
-        <a class="explore-card" href="#"><span>📢</span><h3>Announcements</h3><p>Stay updated with important notices.</p></a>
-        <a class="explore-card" href="#"><span>🛟</span><h3>Help Centre</h3><p>Find help using the platform.</p></a>
+
+
+        <!-- SMART NOTES STUDIO -->
+        <a class="explore-card" href="notes.html">
+
+          <span>📝</span>
+
+          <h3>Smart Notes Studio</h3>
+
+          <p>
+            Create and organise your study notes.
+          </p>
+
+        </a>
+
+
+        <!-- COLLEGE PPT MAKER -->
+        <a class="explore-card" href="ppt-maker.html">
+
+          <span>📊</span>
+
+          <h3>College PPT Maker</h3>
+
+          <p>
+            Prepare presentations for college work.
+          </p>
+
+        </a>
+
+
+        <!-- PRIVATE DOUBT SUBMISSION -->
+        <a class="explore-card" href="doubt.html">
+
+          <span>❓</span>
+
+          <h3>Private Doubt Submission</h3>
+
+          <p>
+            Send your doubts to the assigned teacher.
+          </p>
+
+        </a>
+
+
+        <!-- COMMUNITY DISCUSSION -->
+        <a class="explore-card" href="community.html">
+
+          <span>💬</span>
+
+          <h3>Community Discussion</h3>
+
+          <p>
+            Learn and discuss with other students.
+          </p>
+
+        </a>
+
+
+        <!-- ANNOUNCEMENTS -->
+        <a class="explore-card" href="announcements.html">
+
+          <span>📢</span>
+
+          <h3>Announcements</h3>
+
+          <p>
+            Stay updated with important notices.
+          </p>
+
+        </a>
+
+
+        <!-- HELP CENTRE -->
+        <a class="explore-card" href="help.html">
+
+          <span>🛟</span>
+
+          <h3>Help Centre</h3>
+
+          <p>
+            Find help using the platform.
+          </p>
+
+        </a>
+
       </div>
+
     </section>
 
+
+    <!-- HELP SECTION -->
     <section class="help-section" id="help">
+
       <h2>Keep Learning. Keep Growing.</h2>
-      <p>Your learning journey starts here.</p>
+
+      <p>
+        Your learning journey starts here.
+      </p>
+
+      <a href="help.html" class="primary-button">
+        Visit Help Centre
+      </a>
+
     </section>
+
   </main>
 
+
+  <!-- FOOTER -->
   <footer>
+
     <strong>Chand Learning</strong>
+
     <p>A Smarter Way to Learn</p>
-    <small>© 2026 Chand Learning. All rights reserved.</small>
+
+    <div class="footer-links">
+
+      <a href="help.html">Help Centre</a>
+
+      <a href="announcements.html">Announcements</a>
+
+      <a href="community.html">Community</a>
+
+    </div>
+
+    <small>
+      © 2026 Chand Learning. All rights reserved.
+    </small>
+
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="script.js"></script></body>
+
+
+  <!-- SUPABASE CONNECTION -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- HOMEPAGE JAVASCRIPT -->
+  <script src="script.js"></script>
+
+</body>
 </html>

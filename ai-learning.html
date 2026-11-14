@@ -1,514 +1,257 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI-powered study tools at Chand Learning.">
-  <title>AI Learning Centre | Chand Learning</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --navy: #14264b;
-      --muted: #65728a;
-      --line: #e7ebf3;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f7f9fd;
-      color: var(--navy);
-      line-height: 1.55;
-    }
-
-    button, textarea, input {
-      font-family: inherit;
-    }
-
-    .topbar {
-      background: #14264b;
-      color: white;
-      padding: 22px max(6%, calc((100% - 1120px) / 2));
-    }
-
-    .back {
-      display: inline-block;
-      color: #dce7ff;
-      font-size: 14px;
-      margin-bottom: 17px;
-      text-decoration: none;
-    }
-
-    .topbar h1 {
-      font-size: 30px;
-      line-height: 1.2;
-      margin-bottom: 5px;
-    }
-
-    .topbar p {
-      color: #d6e0f4;
-      font-size: 14px;
-    }
-
-    main {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 35px 22px 65px;
-    }
-
-    .intro {
-      margin-bottom: 25px;
-    }
-
-    .intro h2 {
-      font-size: 22px;
-      margin-bottom: 5px;
-    }
-
-    .intro p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .tool-card {
-      display: flex;
-      align-items: center;
-      gap: 17px;
-      text-align: left;
-      border: 1px solid var(--line);
-      border-radius: 19px;
-      padding: 23px;
-      min-height: 142px;
-      cursor: pointer;
-      transition: transform .18s, box-shadow .18s;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 26px #1b376012;
-    }
-
-    .tool-icon {
-      width: 57px;
-      height: 57px;
-      flex: 0 0 57px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-size: 27px;
-      font-weight: 700;
-    }
-
-    .tool-copy {
-      flex: 1;
-    }
-
-    .tool-copy h3 {
-      font-size: 18px;
-      margin-bottom: 4px;
-      color: #14264b;
-    }
-
-    .tool-copy p {
-      font-size: 13px;
-      color: #536078;
-    }
-
-    .arrow {
-      font-size: 24px;
-      color: #526078;
-    }
-
-    .notes {
-      background: #e8f1ff;
-    }
-
-    .notes .tool-icon {
-      background: #d2e4ff;
-      color: #2764c5;
-    }
-
-    .solver {
-      background: #e7f6ee;
-    }
-
-    .solver .tool-icon {
-      background: #cceedd;
-      color: #188653;
-    }
-
-    .questions {
-      background: #f2eafe;
-    }
-
-    .questions .tool-icon {
-      background: #e3d2fa;
-      color: #7945b8;
-    }
-
-    .all {
-      background: #fff0e3;
-    }
-
-    .all .tool-icon {
-      background: #ffe0c2;
-      color: #c36b25;
-    }
-
-    .workspace {
-      display: none;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 24px;
-      margin-top: 24px;
-    }
-
-    .workspace.active {
-      display: block;
-    }
-
-    .workspace-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .workspace-head h2 {
-      font-size: 21px;
-    }
-
-    .back-tools {
-      border: 0;
-      background: #edf2fa;
-      color: #25395e;
-      border-radius: 9px;
-      padding: 9px 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .hint {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 15px;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 150px;
-      resize: vertical;
-      border: 1px solid #dce3ef;
-      border-radius: 12px;
-      padding: 15px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: #638be0;
-      box-shadow: 0 0 0 3px #2463eb18;
-    }
-
-    .attach {
-      display: block;
-      margin: 14px 0;
-      color: #536078;
-      font-size: 13px;
-    }
-
-    input[type="file"] {
-      display: block;
-      margin-top: 7px;
-      max-width: 100%;
-    }
-
-    .generate {
-      border: 0;
-      border-radius: 10px;
-      background: #2463eb;
-      color: white;
-      padding: 12px 19px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .notice {
-      margin-top: 14px;
-      background: #f3f6fb;
-      border-radius: 10px;
-      padding: 12px 14px;
-      color: #536078;
-      font-size: 13px;
-    }
-
-    .chat-log {
-      min-height: 180px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 13px;
-      color: #65728a;
-      font-size: 14px;
-    }
-
-    .chat-row {
-      display: flex;
-      gap: 9px;
-    }
-
-    .chat-row textarea {
-      min-height: 58px;
-      flex: 1;
-    }
-
-    .chat-row button {
-      align-self: stretch;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-
-    @media (max-width: 650px) {
-      .topbar {
-        padding: 20px 5%;
-      }
-
-      .topbar h1 {
-        font-size: 26px;
-      }
-
-      main {
-        padding: 27px 15px 45px;
-      }
-
-      .tool-grid {
-        grid-template-columns: 1fr;
-        gap: 13px;
-      }
-
-      .tool-card {
-        min-height: 120px;
-        padding: 18px;
-      }
-
-      .workspace {
-        padding: 17px;
-      }
-
-      .workspace-head h2 {
-        font-size: 18px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Learning Centre | Chand Learning</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#14264b;--muted:#68758c;--line:#e7ebf3}
+body{font-family:Arial,Helvetica,sans-serif;background:#f7f9fd;color:var(--navy);line-height:1.55}
+button,textarea,input{font:inherit}
+.topbar{background:var(--navy);color:#fff;padding:22px 6%}
+.back{display:inline-block;color:#dce7ff;font-size:14px;margin-bottom:17px;text-decoration:none}
+.topbar h1{font-size:28px;margin-bottom:5px}
+.topbar p{color:#d6e0f4;font-size:14px}
+main{max-width:1050px;margin:auto;padding:30px 18px 60px}
+.intro{margin-bottom:22px}
+.intro h2{font-size:22px;margin-bottom:5px}
+.intro p{color:var(--muted);font-size:14px}
+.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tool-card{display:flex;align-items:center;gap:15px;text-align:left;border:1px solid var(--line);border-radius:18px;padding:20px;min-height:130px;cursor:pointer;transition:.18s}
+.tool-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #1b376012}
+.tool-icon{width:54px;height:54px;flex:0 0 54px;border-radius:15px;display:grid;place-items:center;font-size:26px;font-weight:bold}
+.tool-copy{flex:1}
+.tool-copy h3{font-size:17px;margin-bottom:4px}
+.tool-copy p{font-size:13px;color:#536078}
+.arrow{font-size:23px;color:#526078}
+.notes{background:#e8f1ff}.notes .tool-icon{background:#d2e4ff;color:#2764c5}
+.solver{background:#e7f6ee}.solver .tool-icon{background:#cceedd;color:#188653}
+.questions{background:#f2eafe}.questions .tool-icon{background:#e3d2fa;color:#7945b8}
+.all{background:#fff0e3}.all .tool-icon{background:#ffe0c2;color:#c36b25}
+.workspace{display:none;background:white;border:1px solid var(--line);border-radius:19px;margin-top:22px;overflow:hidden;min-height:510px}
+.workspace.active{display:flex;flex-direction:column}
+.workspace-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:17px 19px;border-bottom:1px solid var(--line)}
+.workspace-head h2{font-size:19px}
+.mode-label{font-size:12px;color:var(--muted)}
+.back-tools{border:0;background:#edf2fa;color:#25395e;border-radius:9px;padding:9px 12px;font-weight:bold;cursor:pointer}
+.chat-welcome{text-align:center;padding:32px 18px 20px}
+.welcome-icon{width:48px;height:48px;margin:0 auto 12px;border-radius:15px;background:#edf2ff;color:#315fc0;display:grid;place-items:center;font-size:24px}
+.chat-welcome h3{font-size:20px;margin-bottom:6px}
+.chat-welcome p{font-size:14px;color:var(--muted);max-width:520px;margin:auto}
+.suggestions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:17px}
+.suggestion{border:1px solid #dfe6f2;background:white;color:#43516b;border-radius:20px;padding:8px 12px;font-size:12px;cursor:pointer}
+.messages{flex:1;padding:0 18px 18px;display:flex;flex-direction:column;gap:12px}
+.message{max-width:88%;padding:11px 14px;border-radius:15px;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.message.user{align-self:flex-end;background:#eaf1ff;color:#203d73;border-bottom-right-radius:5px}
+.composer-wrap{padding:13px;border-top:1px solid var(--line)}
+.composer{border:1px solid #dce3ef;border-radius:16px;padding:10px}
+.composer:focus-within{border-color:#8ba8e8}
+#messageInput{display:block;width:100%;min-height:55px;max-height:150px;resize:vertical;border:0;outline:0;padding:5px;font-size:15px}
+.composer-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
+.attach-btn{color:#536078;font-size:13px;cursor:pointer;padding:7px}
+#fileInput{display:none}
+.send-btn{border:0;border-radius:10px;background:#245fd3;color:white;padding:10px 17px;font-weight:bold;cursor:pointer}
+.file-name{font-size:12px;color:#536078;margin:7px}
+.notice{padding:10px;background:#f5f7fb;color:#69758a;font-size:12px;text-align:center}
+[hidden]{display:none!important}
+@media(max-width:650px){
+.topbar{padding:20px 5%}
+main{padding:25px 14px 40px}
+.tool-grid{grid-template-columns:1fr;gap:12px}
+.tool-card{min-height:115px;padding:17px}
+.workspace{min-height:490px}
+.workspace-head h2{font-size:17px}
+}
+</style>
 </head>
-
 <body>
+<header class="topbar">
+<a class="back" href="index.html">← Back to Chand Learning</a>
+<h1>AI Learning Centre</h1>
+<p>What would you like to do today?</p>
+</header>
 
-  <header class="topbar">
-    <a class="back" href="index.html">← Back to Chand Learning</a>
-    <h1>AI Learning Centre</h1>
-    <p>What would you like to do today?</p>
-  </header>
+<main>
+<section id="toolPicker">
+<div class="intro">
+<h2>Explore your AI tools</h2>
+<p>Choose a tool and start a natural conversation.</p>
+</div>
 
-  <main>
+<div class="tool-grid">
+<button class="tool-card notes" data-tool="notes">
+<span class="tool-icon">▤</span>
+<span class="tool-copy"><h3>AI Notes Generator</h3><p>Create clear, organised notes from your study material.</p></span>
+<span class="arrow">↗</span>
+</button>
 
-    <section id="toolPicker">
+<button class="tool-card solver" data-tool="solver">
+<span class="tool-icon">◎</span>
+<span class="tool-copy"><h3>AI Problem Solver</h3><p>Understand and solve maths, science, grammar and more.</p></span>
+<span class="arrow">↗</span>
+</button>
 
-      <div class="intro">
-        <h2>Explore your AI tools</h2>
-        <p>Choose a tool and describe what you need in your own words.</p>
-      </div>
+<button class="tool-card questions" data-tool="questions">
+<span class="tool-icon">☷</span>
+<span class="tool-copy"><h3>AI Question Creator</h3><p>Prepare practice questions, MCQs and exam-style papers.</p></span>
+<span class="arrow">↗</span>
+</button>
 
-      <div class="tool-grid">
+<button class="tool-card all" data-tool="all">
+<span class="tool-icon">✦</span>
+<span class="tool-copy"><h3>AI All Features</h3><p>Ask, explore, create and work through academic tasks.</p></span>
+<span class="arrow">↗</span>
+</button>
+</div>
+</section>
 
-        <button class="tool-card notes" data-tool="notes">
-          <span class="tool-icon">▤</span>
-          <span class="tool-copy">
-            <h3>AI Notes Generator</h3>
-            <p>Create clear, organised notes from your instructions or study material.</p>
-          </span>
-          <span class="arrow">↗</span>
-        </button>
+<section class="workspace" id="workspace">
+<div class="workspace-head">
+<div>
+<h2 id="workspaceTitle">AI Assistant</h2>
+<p class="mode-label" id="modeLabel">Chand Learning AI</p>
+</div>
+<button class="back-tools" id="backTools">← All tools</button>
+</div>
 
-        <button class="tool-card solver" data-tool="solver">
-          <span class="tool-icon">◎</span>
-          <span class="tool-copy">
-            <h3>AI Problem Solver</h3>
-            <p>Work through maths, science, grammar and other questions.</p>
-          </span>
-          <span class="arrow">↗</span>
-        </button>
+<div class="chat-welcome" id="welcome">
+<div class="welcome-icon">✦</div>
+<h3 id="welcomeTitle">What would you like to learn?</h3>
+<p id="welcomeText">Ask a question or attach your study material to get started.</p>
+<div class="suggestions" id="suggestions"></div>
+</div>
 
-        <button class="tool-card questions" data-tool="questions">
-          <span class="tool-icon">☷</span>
-          <span class="tool-copy">
-            <h3>AI Question Creator</h3>
-            <p>Prepare practice questions, MCQs and exam-style papers.</p>
-          </span>
-          <span class="arrow">↗</span>
-        </button>
+<div class="messages" id="messages" aria-live="polite"></div>
 
-        <button class="tool-card all" data-tool="all">
-          <span class="tool-icon">✦</span>
-          <span class="tool-copy">
-            <h3>AI All Features</h3>
-            <p>Ask, explore, create and work through broader academic tasks.</p>
-          </span>
-          <span class="arrow">↗</span>
-        </button>
+<div class="composer-wrap">
+<div class="composer">
+<textarea id="messageInput" rows="2" placeholder="Message Chand Learning AI..."></textarea>
+<div class="composer-bottom">
+<label class="attach-btn" for="fileInput">＋ Attach file</label>
+<button class="send-btn" id="sendButton" type="button">Send ↑</button>
+</div>
+<input id="fileInput" type="file" multiple accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.webp">
+<div class="file-name" id="fileName" hidden></div>
+</div>
+</div>
+<div class="notice" id="notice">Chat interface preview. AI responses will be enabled after the secure AI backend is connected.</div>
+</section>
+</main>
 
-      </div>
-    </section>
+<script>
+const modes={
+notes:{
+title:"AI Notes Generator",
+label:"Create notes from your learning material",
+welcome:"What kind of notes do you need?",
+description:"Tell me the topic or attach your syllabus, textbook pages or PDF. Ask for simple explanations, exam notes or summaries.",
+placeholder:"Message AI Notes Generator...",
+chips:["Make easy exam notes","Summarise this chapter","Explain this topic with examples"]
+},
+solver:{
+title:"AI Problem Solver",
+label:"Understand questions step by step",
+welcome:"Let's solve something together.",
+description:"Type your question or attach a photo. Ask for a short answer, detailed explanation, proof or exam-style solution.",
+placeholder:"Type your question...",
+chips:["Explain step by step","Solve with an easy method","Check my solution"]
+},
+questions:{
+title:"AI Question Creator",
+label:"Create practice and exam questions",
+welcome:"What would you like to practise?",
+description:"Describe the chapter, question type or exam pattern, or attach your syllabus and study material.",
+placeholder:"Describe the questions you need...",
+chips:["Create important questions","Make 10 MCQs with answers","Create a model question paper"]
+},
+all:{
+title:"AI All Features",
+label:"Your open-ended academic assistant",
+welcome:"How can I help you today?",
+description:"Ask about learning, writing, understanding concepts, planning your studies or other academic tasks.",
+placeholder:"Message Chand Learning AI...",
+chips:["Explain a difficult concept","Help me prepare for an exam","Review my written answer"]
+}
+};
 
-    <section class="workspace" id="workspace">
+const picker=document.getElementById("toolPicker");
+const workspace=document.getElementById("workspace");
+const messages=document.getElementById("messages");
 
-      <div class="workspace-head">
-        <h2 id="workspaceTitle">AI workspace</h2>
-        <button class="back-tools" id="backTools">← All tools</button>
-      </div>
+function openMode(key){
+const m=modes[key];
+document.getElementById("workspaceTitle").textContent=m.title;
+document.getElementById("modeLabel").textContent=m.label;
+document.getElementById("welcomeTitle").textContent=m.welcome;
+document.getElementById("welcomeText").textContent=m.description;
+document.getElementById("messageInput").placeholder=m.placeholder;
+messages.innerHTML="";
+document.getElementById("welcome").hidden=false;
+document.getElementById("fileName").hidden=true;
+document.getElementById("fileInput").value="";
+const chips=document.getElementById("suggestions");
+chips.innerHTML="";
+m.chips.forEach(text=>{
+const b=document.createElement("button");
+b.className="suggestion";
+b.type="button";
+b.textContent=text;
+b.addEventListener("click",()=>{
+document.getElementById("messageInput").value=text;
+document.getElementById("messageInput").focus();
+});
+chips.appendChild(b);
+});
+picker.hidden=true;
+workspace.classList.add("active");
+workspace.scrollIntoView({behavior:"smooth",block:"start"});
+}
 
-      <p class="hint" id="workspaceHint"></p>
+document.querySelectorAll("[data-tool]").forEach(b=>{
+b.addEventListener("click",()=>openMode(b.dataset.tool));
+});
 
-      <div id="standardPanel">
-        <textarea
-          id="taskPrompt"
-          placeholder="Describe exactly what you want the AI to do..."
-        ></textarea>
+document.getElementById("backTools").addEventListener("click",()=>{
+workspace.classList.remove("active");
+picker.hidden=false;
+picker.scrollIntoView({behavior:"smooth",block:"start"});
+});
 
-        <label class="attach">
-          Add study material (optional)
-          <input
-            id="taskFiles"
-            type="file"
-            multiple
-            accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.webp"
-          >
-        </label>
+document.getElementById("fileInput").addEventListener("change",e=>{
+const files=[...e.target.files];
+const el=document.getElementById("fileName");
+el.textContent=files.length?files.map(f=>f.name).join(", "):"";
+el.hidden=!files.length;
+});
 
-        <button class="generate" id="generateButton">Generate</button>
-      </div>
+function sendMessage(){
+const input=document.getElementById("messageInput");
+const value=input.value.trim();
+const files=[...document.getElementById("fileInput").files];
+if(!value&&!files.length)return;
 
-      <div id="chatPanel" hidden>
-        <div class="chat-log">
-          Your conversation will appear here when the AI service is connected.
-        </div>
+document.getElementById("welcome").hidden=true;
+const bubble=document.createElement("div");
+bubble.className="message user";
+bubble.textContent=[value,files.length?"Attached: "+files.map(f=>f.name).join(", "):""].filter(Boolean).join("\n");
+messages.appendChild(bubble);
 
-        <div class="chat-row">
-          <textarea placeholder="Ask anything about your studies..."></textarea>
-          <button class="generate" type="button">Send</button>
-        </div>
+input.value="";
+document.getElementById("fileInput").value="";
+document.getElementById("fileName").hidden=true;
 
-        <label class="attach">
-          Attach a file or image
-          <input
-            type="file"
-            multiple
-            accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.webp"
-          >
-        </label>
-      </div>
+document.getElementById("notice").textContent=
+"Interface preview only. Connect the secure AI backend to receive real AI responses.";
+}
 
-      <p class="notice" id="connectionNotice">
-        The workspace layout is ready. AI generation will work after the secure AI backend is connected.
-      </p>
-
-    </section>
-
-  </main>
-
-  <script>
-    const toolInfo = {
-      notes: {
-        title: "AI Notes Generator",
-        hint: "Tell the AI what notes you need, or attach your syllabus, textbook pages or other study material.",
-        placeholder: "Example: Make detailed but easy-to-understand exam notes from the attached chapter. Use headings, important definitions and examples. Write in simple English."
-      },
-
-      solver: {
-        title: "AI Problem Solver",
-        hint: "Enter or attach a question. You can request a short answer, detailed explanation, proof or exam-style solution.",
-        placeholder: "Paste your question here and explain how you want it solved. For example: show every mathematical step and explain why each step is used."
-      },
-
-      questions: {
-        title: "AI Question Creator",
-        hint: "Describe the questions or exam paper you want, or attach your syllabus or chapter content.",
-        placeholder: "Example: Create 15 important questions from this chapter: 5 MCQs, 5 short-answer and 5 long-answer questions. Include answers separately."
-      },
-
-      all: {
-        title: "AI All Features",
-        hint: "Use this space for open-ended academic tasks and follow-up conversations.",
-        placeholder: ""
-      }
-    };
-
-    const picker = document.getElementById("toolPicker");
-    const workspace = document.getElementById("workspace");
-
-    document.querySelectorAll("[data-tool]").forEach(card => {
-      card.addEventListener("click", () => {
-
-        const info = toolInfo[card.dataset.tool];
-
-        document.getElementById("workspaceTitle").textContent = info.title;
-
-        document.getElementById("workspaceHint").textContent = info.hint;
-
-        document.getElementById("taskPrompt").placeholder = info.placeholder;
-
-        const isChat = card.dataset.tool === "all";
-
-        document.getElementById("standardPanel").hidden = isChat;
-
-        document.getElementById("chatPanel").hidden = !isChat;
-
-        document.getElementById("connectionNotice").hidden = isChat;
-
-        picker.hidden = true;
-
-        workspace.classList.add("active");
-
-        workspace.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      });
-    });
-
-    document.getElementById("backTools").addEventListener("click", () => {
-      workspace.classList.remove("active");
-
-      picker.hidden = false;
-
-      picker.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
-
-    document.getElementById("generateButton").addEventListener("click", () => {
-      document.getElementById("connectionNotice").textContent =
-        "Your request is ready, but AI generation is not active yet. The secure AI backend must be connected before requests can be processed.";
-    });
-  </script>
-
+document.getElementById("sendButton").addEventListener("click",sendMessage);
+document.getElementById("messageInput").addEventListener("keydown",e=>{
+if(e.key==="Enter"&&!e.shiftKey){
+e.preventDefault();
+sendMessage();
+}
+});
+</script>
 </body>
 </html>

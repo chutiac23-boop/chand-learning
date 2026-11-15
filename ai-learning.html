@@ -234,24 +234,67 @@ el.textContent=files.length?files.map(f=>f.name).join(", "):"";
 el.hidden=!files.length;
 });
 
-function sendMessage(){
-const input=document.getElementById("messageInput");
-const value=input.value.trim();
-const files=[...document.getElementById("fileInput").files];
-if(!value&&!files.length)return;
+async function sendMessage(){
+  const input = document.getElementById("messageInput");
+  const sendButton = document.getElementById("sendButton");
+  const value = input.value.trim();
+  const files = [...document.getElementById("fileInput").files];
 
-document.getElementById("welcome").hidden=true;
-const bubble=document.createElement("div");
-bubble.className="message user";
-bubble.textContent=[value,files.length?"Attached: "+files.map(f=>f.name).join(", "):""].filter(Boolean).join("\n");
-messages.appendChild(bubble);
+  if (!value && !files.length) return;
 
-input.value="";
-document.getElementById("fileInput").value="";
-document.getElementById("fileName").hidden=true;
+  const messages = document.getElementById("messages");
+  const notice = document.getElementById("notice");
 
-document.getElementById("notice").textContent=
-"Interface preview only. Connect the secure AI backend to receive real AI responses.";
+  document.getElementById("welcome").hidden = true;
+
+  const userBubble = document.createElement("div");
+  userBubble.className = "message user";
+  userBubble.textContent = value || "Please help me with the attached file.";
+  messages.appendChild(userBubble);
+
+  input.value = "";
+  document.getElementById("fileInput").value = "";
+  document.getElementById("fileName").hidden = true;
+
+  if (files.length) {
+    const fileNote = document.createElement("div");
+    fileNote.className = "message user";
+    fileNote.textContent = "Attached: " + files.map(f => f.name).join(", ");
+    messages.appendChild(fileNote);
+  }
+
+  const thinking = document.createElement("div");
+  thinking.className = "message assistant";
+  thinking.textContent = "Thinking...";
+  messages.appendChild(thinking);
+
+  sendButton.disabled = true;
+  notice.textContent = "Connecting to AI...";
+
+  try {
+    const { data, error } = await chandSupabase.functions.invoke(
+      "dynamic-handler",
+      {
+        body: {
+          message: value || "Please help me with the attached file."
+        }
+      }
+    );
+
+    if (error) throw error;
+
+    thinking.textContent = data.reply || "No response received.";
+    notice.textContent = "AI response received.";
+
+  } catch (error) {
+    thinking.textContent =
+      "Unable to get a response. Please log in and try again.";
+    notice.textContent = "Connection error. Please try again.";
+    console.error(error);
+  } finally {
+    sendButton.disabled = false;
+    messages.scrollTop = messages.scrollHeight;
+  }
 }
 
 document.getElementById("sendButton").addEventListener("click",sendMessage);

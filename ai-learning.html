@@ -139,7 +139,16 @@ main{padding:25px 14px 40px}
 </section>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL = "https://wkpbfihymdcoivuvozvh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_CCjXcQ1dA4yh-0vqxyDzfg_RDgJD2AR";
+
+const chandSupabase = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
 const modes={
 notes:{
 title:"AI Notes Generator",

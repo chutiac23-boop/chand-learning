@@ -273,19 +273,12 @@ async function sendMessage(){
   notice.textContent = "Connecting to AI...";
 
   try {
-    const { data, error } = await chandSupabase.functions.invoke(
-      "dynamic-handler",
-      {
-        body: {
-          message: value || "Please help me with the attached file."
-        }
-      }
-    );
+    const reply = await window.ChandAIService.send(
+  value || "Please help me with the attached file."
+);
 
-    if (error) throw error;
-
-    thinking.textContent = data.reply || "No response received.";
-    notice.textContent = "AI response received.";
+thinking.textContent = reply;
+notice.textContent = "AI response received.";
 
   } catch (error) {
     thinking.textContent =

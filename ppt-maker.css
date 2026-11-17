@@ -1,0 +1,638 @@
+/* =========================================
+   CHAND LEARNING - PPT MAKER
+   Independent editor stylesheet
+========================================= */
+
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #172033;
+  background: #eef1f6;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =========================================
+   MAIN APPLICATION
+========================================= */
+
+.ppt-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   TOP HEADER
+========================================= */
+
+.topbar {
+  min-height: 62px;
+  background: #ffffff;
+  border-bottom: 1px solid #dce1ea;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 0 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.brand {
+  color: #172554;
+  text-decoration: none;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+#presentationTitle {
+  width: min(260px, 25vw);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 8px;
+  font-weight: 650;
+  color: #263248;
+  background: #ffffff;
+}
+
+#presentationTitle:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #93c5fd;
+}
+
+#saveStatus {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.top-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-actions button,
+.canvas-toolbar button,
+.menu-tab,
+.wide-btn,
+.sidebar-heading button {
+  border: 1px solid #d7deea;
+  background: #ffffff;
+  border-radius: 7px;
+  padding: 8px 11px;
+  color: #263248;
+}
+
+.top-actions button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.top-actions .primary-btn {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+  font-weight: 650;
+}
+
+/* =========================================
+   MENU BAR
+========================================= */
+
+.menu-bar {
+  min-height: 43px;
+  background: #ffffff;
+  border-bottom: 1px solid #dce1ea;
+
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 5px;
+}
+
+.menu-tab {
+  border: 0;
+  border-radius: 5px;
+  padding: 7px 13px;
+}
+
+.menu-tab.active {
+  background: #eaf1ff;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+/* =========================================
+   EDITOR WORKSPACE
+========================================= */
+
+.workspace {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr) 245px;
+
+  min-height: calc(100vh - 105px);
+  flex: 1;
+}
+
+.slide-sidebar,
+.properties-sidebar {
+  background: #ffffff;
+  min-width: 0;
+}
+
+.slide-sidebar {
+  border-right: 1px solid #dce1ea;
+  padding: 14px;
+}
+
+.properties-sidebar {
+  border-left: 1px solid #dce1ea;
+  padding: 15px;
+  overflow: auto;
+}
+
+/* =========================================
+   SLIDE SIDEBAR
+========================================= */
+
+.sidebar-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.sidebar-heading button {
+  font-size: 20px;
+  padding: 2px 9px;
+}
+
+.slide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.slide-thumb {
+  width: 100%;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 5px;
+  text-align: left;
+  background: #f1f4f9;
+  color: #334155;
+}
+
+.slide-thumb.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.thumb-canvas {
+  aspect-ratio: 16 / 9;
+  background: #ffffff;
+  border: 1px solid #d8deea;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.thumb-number {
+  font-size: 12px;
+  padding: 5px 2px 0;
+  display: block;
+}
+
+/* =========================================
+   CENTRAL EDITOR
+========================================= */
+
+.editor-area {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Toolbar */
+
+.canvas-toolbar {
+  min-height: 48px;
+  background: #f8faff;
+  border-bottom: 1px solid #dce1ea;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+}
+
+.canvas-toolbar button {
+  font-size: 13px;
+  padding: 7px 10px;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.tool-upload {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  border: 1px solid #d7deea;
+  background: #ffffff;
+  border-radius: 7px;
+
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
+.tool-upload input {
+  display: none;
+}
+
+#deleteObjectBtn {
+  color: #b42318;
+}
+
+/* Slide canvas area */
+
+.canvas-stage {
+  flex: 1;
+  min-height: 350px;
+  overflow: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+  background: #e9edf4;
+}
+
+.canvas-frame {
+  width: min(100%, 960px);
+  aspect-ratio: 16 / 9;
+
+  background: #ffffff;
+  box-shadow: 0 8px 28px #17203324;
+
+  flex: none;
+  position: relative;
+}
+
+#slideCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Bottom status */
+
+.editor-footer {
+  min-height: 34px;
+  background: #ffffff;
+  border-top: 1px solid #dce1ea;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 14px;
+  color: #718096;
+  font-size: 12px;
+}
+
+/* =========================================
+   RIGHT PROPERTIES PANEL
+========================================= */
+
+.properties-heading {
+  font-weight: 750;
+  margin-bottom: 16px;
+}
+
+.property-section {
+  border-bottom: 1px solid #e6eaf0;
+  padding: 0 0 15px;
+  margin-bottom: 15px;
+}
+
+.property-section h3 {
+  font-size: 13px;
+  margin: 0 0 10px;
+}
+
+.property-section label {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.property-section input[type="color"] {
+  width: 100%;
+  height: 38px;
+
+  border: 1px solid #d7deea;
+  border-radius: 6px;
+
+  background: #ffffff;
+  padding: 3px;
+}
+
+.muted {
+  color: #7b8798;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.background-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+
+.bg-preset {
+  height: 38px;
+  border: 1px solid #d1d9e6;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.wide-btn {
+  width: 100%;
+  margin-top: 7px;
+}
+
+.subtle-danger {
+  color: #b42318 !important;
+}
+
+.prop-control {
+  width: 100%;
+  margin: 5px 0 10px;
+  border: 1px solid #d7deea;
+  border-radius: 6px;
+  padding: 7px;
+}
+
+.prop-label {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* =========================================
+   PRESENTATION MODE
+========================================= */
+
+.present-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: #080d19;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  padding: 45px;
+}
+
+.present-overlay[hidden] {
+  display: none;
+}
+
+.present-slide {
+  width: min(86vw, 1280px);
+  aspect-ratio: 16 / 9;
+
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.present-slide canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.close-present {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+
+  background: transparent;
+  border: 0;
+
+  color: #ffffff;
+  font-size: 32px;
+}
+
+.present-nav {
+  background: #ffffff20;
+  border: 1px solid #ffffff50;
+  color: #ffffff;
+
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+
+  font-size: 28px;
+}
+
+.present-count {
+  position: absolute;
+  bottom: 14px;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 900px) {
+
+  .workspace {
+    grid-template-columns: 145px minmax(0, 1fr);
+  }
+
+  .properties-sidebar {
+    grid-column: 1 / -1;
+
+    border-left: 0;
+    border-top: 1px solid #dce1ea;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .properties-heading {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  .property-section {
+    margin: 0;
+  }
+
+  .slide-sidebar {
+    padding: 10px;
+  }
+
+  .canvas-stage {
+    padding: 12px;
+    min-height: 300px;
+  }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 600px) {
+
+  .topbar {
+    min-height: 58px;
+    padding: 8px 10px;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  #presentationTitle {
+    width: calc(100% - 48px);
+    flex: 1;
+  }
+
+  #saveStatus {
+    order: 3;
+    font-size: 11px;
+  }
+
+  .top-actions {
+    order: 2;
+    margin-left: 0;
+    gap: 5px;
+  }
+
+  .top-actions button {
+    font-size: 12px;
+    padding: 7px;
+  }
+
+  .top-actions #undoBtn,
+  .top-actions #redoBtn {
+    display: none;
+  }
+
+  .menu-bar {
+    padding: 0 8px;
+  }
+
+  .workspace {
+    grid-template-columns: 88px minmax(0, 1fr);
+    min-height: calc(100vh - 105px);
+  }
+
+  .slide-sidebar {
+    padding: 8px 5px;
+  }
+
+  .sidebar-heading strong {
+    font-size: 12px;
+  }
+
+  .slide-list {
+    gap: 8px;
+  }
+
+  .slide-thumb {
+    padding: 3px;
+  }
+
+  .thumb-number {
+    font-size: 10px;
+  }
+
+  .canvas-toolbar {
+    min-height: 44px;
+    flex-wrap: wrap;
+    padding: 6px;
+    gap: 5px;
+  }
+
+  .canvas-toolbar button,
+  .tool-upload {
+    font-size: 11px;
+    padding: 6px;
+  }
+
+  .canvas-stage {
+    padding: 8px;
+    min-height: 240px;
+    align-items: flex-start;
+  }
+
+  .canvas-frame {
+    margin: auto;
+  }
+
+  .editor-footer {
+    font-size: 10px;
+    padding: 0 7px;
+  }
+
+  .properties-sidebar {
+    display: block;
+    padding: 10px;
+  }
+
+  .property-section {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .present-overlay {
+    padding: 40px 8px;
+    gap: 6px;
+  }
+
+  .present-nav {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+  }
+
+  .present-slide {
+    width: calc(100vw - 80px);
+  }
+  }

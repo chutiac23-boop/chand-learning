@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#172554">
+
+  <title>PPT Maker | Chand Learning</title>
+
+  <link rel="stylesheet" href="ppt-maker.css">
+
+  <!-- Slide editing library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+
+  <!-- PowerPoint export library -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+</head>
+
+<body>
+
+  <div class="ppt-app">
+
+    <!-- TOP HEADER -->
+    <header class="topbar">
+
+      <a href="index.html" class="brand">
+        ← Chand Learning
+      </a>
+
+      <input
+        type="text"
+        id="presentationTitle"
+        value="Untitled Presentation"
+        aria-label="Presentation title"
+      >
+
+      <span id="saveStatus">Not saved yet</span>
+
+      <div class="top-actions">
+        <button id="undoBtn" disabled>↶</button>
+        <button id="redoBtn" disabled>↷</button>
+        <button id="presentBtn">Present</button>
+        <button id="exportBtn" class="primary-btn">
+          Export PPTX
+        </button>
+      </div>
+
+    </header>
+
+
+    <!-- EDITOR MENU -->
+    <nav class="menu-bar">
+
+      <button class="menu-tab active" data-panel="slides">
+        Slides
+      </button>
+
+      <button class="menu-tab" data-panel="insert">
+        Insert
+      </button>
+
+      <button class="menu-tab" data-panel="design">
+        Design
+      </button>
+
+      <button class="menu-tab" data-panel="help">
+        Help
+      </button>
+
+    </nav>
+
+
+    <!-- MAIN WORKSPACE -->
+    <main class="workspace">
+
+
+      <!-- LEFT SLIDE PANEL -->
+      <aside class="slide-sidebar">
+
+        <div class="sidebar-heading">
+          <strong>Slides</strong>
+
+          <button id="addSlideBtn" aria-label="Add slide">
+            +
+          </button>
+        </div>
+
+        <div id="slideList" class="slide-list">
+        </div>
+
+      </aside>
+
+
+      <!-- CENTRAL EDITING AREA -->
+      <section class="editor-area">
+
+        <div class="canvas-toolbar">
+
+          <button id="addTextBtn">
+            + Text
+          </button>
+
+          <button id="addShapeBtn">
+            + Shape
+          </button>
+
+          <label class="tool-upload">
+            + Image
+            <input
+              type="file"
+              id="imageInput"
+              accept="image/*"
+            >
+          </label>
+
+          <span class="toolbar-spacer"></span>
+
+          <button id="deleteObjectBtn">
+            Delete object
+          </button>
+
+          <button id="zoomOutBtn">−</button>
+
+          <span id="zoomLabel">100%</span>
+
+          <button id="zoomInBtn">+</button>
+
+        </div>
+
+
+        <!-- SLIDE CANVAS -->
+        <div class="canvas-stage">
+
+          <div class="canvas-frame">
+
+            <canvas
+              id="slideCanvas"
+              width="960"
+              height="540"
+            ></canvas>
+
+          </div>
+
+        </div>
+
+
+        <!-- BOTTOM STATUS BAR -->
+        <footer class="editor-footer">
+
+          <span id="slideCounter">
+            Slide 1 of 1
+          </span>
+
+          <span>
+            Chand Learning PPT Maker
+          </span>
+
+        </footer>
+
+      </section>
+
+
+      <!-- RIGHT PROPERTIES PANEL -->
+      <aside class="properties-sidebar">
+
+        <div class="properties-heading">
+          Properties
+        </div>
+
+        <section
+          id="objectProperties"
+          class="property-section"
+        >
+
+          <p class="muted">
+            Select an object to edit its properties.
+          </p>
+
+        </section>
+
+
+        <!-- BACKGROUND SETTINGS -->
+        <section class="property-section">
+
+          <h3>Slide Background</h3>
+
+          <label for="backgroundColor">
+            Background Colour
+          </label>
+
+          <input
+            type="color"
+            id="backgroundColor"
+            value="#ffffff"
+          >
+
+          <h3>Background Library</h3>
+
+          <div
+            id="backgroundPresets"
+            class="background-presets"
+          ></div>
+
+        </section>
+
+
+        <!-- SLIDE ACTIONS -->
+        <section class="property-section">
+
+          <button
+            id="duplicateSlideBtn"
+            class="wide-btn"
+          >
+            Duplicate Slide
+          </button>
+
+          <button
+            id="deleteSlideBtn"
+            class="wide-btn"
+          >
+            Delete Slide
+          </button>
+
+        </section>
+
+      </aside>
+
+    </main>
+
+  </div>
+
+
+  <!-- PRESENTATION MODE -->
+  <div
+    id="presentOverlay"
+    class="present-overlay"
+    hidden
+  >
+
+    <button
+      id="closePresentBtn"
+      class="close-present"
+      aria-label="Close presentation"
+    >
+      ×
+    </button>
+
+    <button
+      id="previousSlideBtn"
+      class="present-nav"
+    >
+      ‹
+    </button>
+
+    <div
+      id="presentSlide"
+      class="present-slide"
+    ></div>
+
+    <button
+      id="nextSlideBtn"
+      class="present-nav"
+    >
+      ›
+    </button>
+
+    <div
+      id="presentCount"
+      class="present-count"
+    >
+      1 / 1
+    </div>
+
+  </div>
+
+
+  <!-- PPT MAKER JAVASCRIPT -->
+  <script src="ppt-maker.js"></script>
+
+</body>
+</html>
